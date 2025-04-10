@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>文章列表</h2>
+                    <div class="d-flex">
+                        <form action="/articles/search" method="get" class="me-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="q" placeholder="搜尋文章..." value="{{ search_query|default('') }}">
+                                <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                        <a href="/article/add" class="btn btn-light">新增文章</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if articles %}
+                <div class="row">
+                    {% for article in articles %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h4>{{ article.title }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-1">作者: {{ article.author }}</p>
+                                <p class="text-muted">發布時間: {{ article.created_at.strftime('%Y-%m-%d %H:%M:%S') if article.created_at else '未知' }}</p>
+                                <p>{{ article.content[:100] }}...</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <a href="/article/{{ article.id }}" class="btn btn-info btn-sm">閱讀全文</a>
+                                <div>
+                                    <a href="/article/edit/{{ article.id }}" class="btn btn-warning btn-sm">編輯</a>
+                                    <a href="/article/delete/{{ article.id }}" class="btn btn-danger btn-sm" onclick="return confirm('確定要刪除此文章嗎？')">刪除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center">尚無文章</p>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <a href="/" class="btn btn-primary">回首頁</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

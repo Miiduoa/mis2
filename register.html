@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊帳號 - 411211325</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card mx-auto" style="max-width: 500px;">
+            <div class="card-header bg-success text-white">
+                <h2>註冊新帳號</h2>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <p><strong>Firebase 整合版本：</strong></p>
+                    <p>此版本使用 Firebase 認證系統，您可以使用此頁面註冊新帳號。</p>
+                    <p>或者直接使用測試帳號：</p>
+                    <ul>
+                        <li>帳號：<strong>admin@example.com</strong></li>
+                        <li>密碼：<strong>admin123</strong></li>
+                    </ul>
+                </div>
+                
+                <div id="errorMsg" class="alert alert-danger" style="display: none;"></div>
+                <div id="successMsg" class="alert alert-success" style="display: none;"></div>
+                
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">姓名</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">電子郵件</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密碼</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">確認密碼</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">註冊</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p>已有帳號？<a href="login.html">登入</a></p>
+                <p class="mb-0">學號：411211325 | 授課教師：楊子青</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <!-- 您的 Firebase 配置 -->
+    <script src="static/js/firebase-config.js"></script>
+    
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // 密碼驗證
+            if (password !== confirmPassword) {
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('errorMsg').innerText = '兩次輸入的密碼不一致';
+                return;
+            }
+            
+            // 顯示載入中訊息
+            document.getElementById('successMsg').style.display = 'block';
+            document.getElementById('successMsg').innerText = '註冊中...';
+            document.getElementById('errorMsg').style.display = 'none';
+            
+            try {
+                // 調用註冊 API
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password }),
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('successMsg').innerText = '註冊成功，正在跳轉到登入頁面...';
+                    
+                    // 跳轉到登入頁面
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    throw new Error(data.error || '註冊失敗');
+                }
+            } catch (error) {
+                document.getElementById('successMsg').style.display = 'none';
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('errorMsg').innerHTML = `
+                    <strong>錯誤:</strong> ${error.message}<br>
+                    請重新嘗試，或使用測試帳號: admin@example.com / admin123
+                `;
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

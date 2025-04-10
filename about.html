@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我</title>
+    <style>
+        body {
+            font-family: "微軟正黑體", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0066cc;
+            margin-top: 20px;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 3px solid #0066cc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        iframe, audio {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>個人簡介</h1>
+    
+    <h2>基本資料</h2>
+    <img src="https://via.placeholder.com/150" alt="個人照片">
+    <p>姓名：顧晉瑋</p>
+    <p>電話：0966198826</p>
+    <p>學校：某某大學</p>
+    <p>科系：資訊管理學系</p>
+    <p>個人網站：<a href="https://github.com/yourusername" target="_blank">我的 GitHub</a></p>
+    
+    <h2>興趣愛好</h2>
+    <p>寫程式、聽音樂、看電影</p>
+    
+    <h2>最喜歡的音樂</h2>
+    <audio controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音訊播放
+    </audio>
+    
+    <h2>最喜歡的影片</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    <h2>專業技能</h2>
+    <p>HTML/CSS、JavaScript、Python</p>
+    
+    <h2>技能評分</h2>
+    <table border="1">
+        <tr>
+            <th>技能</th>
+            <th>熟練度</th>
+            <th>使用經驗</th>
+        </tr>
+        <tr>
+            <td>HTML/CSS</td>
+            <td>★★★★☆</td>
+            <td>2年</td>
+        </tr>
+        <tr>
+            <td>JavaScript</td>
+            <td>★★★☆☆</td>
+            <td>1年</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>★★★★☆</td>
+            <td>2年</td>
+        </tr>
+    </table>
+    
+    <h2>互動區域</h2>
+    <button id="changeColorBtn">更換背景顏色</button>
+    <button id="showTimeBtn">顯示當前時間</button>
+    <div id="timeDisplay"></div>
+    
+    <script>
+        // 更換背景顏色
+        document.getElementById("changeColorBtn").addEventListener("click", function() {
+            const colors = ["#f5f5f5", "#e6f2ff", "#fff0e6", "#e6ffe6", "#ffe6e6"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+        });
+        
+        // 顯示當前時間
+        document.getElementById("showTimeBtn").addEventListener("click", function() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-TW');
+            document.getElementById("timeDisplay").textContent = "現在時間：" + timeString;
+        });
+    </script>
+</body>
+</html> 

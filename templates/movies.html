@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電影資料</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .movie-card {
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .movie-poster {
+            height: 300px;
+            object-fit: cover;
+        }
+        .card-footer {
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">資訊管理網站</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mis">課程簡介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/today">今日日期</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/welcome?nick=使用者">歡迎頁面</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account">帳號登入</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">關於我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">使用者管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/movies">電影資料</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>電影資料</h2>
+            <a href="/refresh-movies" class="btn btn-success">更新電影資料</a>
+        </div>
+
+        {% if movies %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for movie in movies %}
+            <div class="col">
+                <div class="card movie-card">
+                    <img src="{{ movie.poster }}" class="card-img-top movie-poster" alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">
+                            <small class="text-muted">上映日期: {{ movie.release_date }}</small><br>
+                            <small class="text-muted">片長: {{ movie.runtime }}</small><br>
+                            <small class="text-muted">導演: {{ movie.director }}</small>
+                        </p>
+                        <p class="card-text">{{ movie.story[:100] + '...' if movie.story|length > 100 else movie.story }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ movie.link }}" class="btn btn-sm btn-primary" target="_blank">查看詳情</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            目前尚無電影資料，請點擊「更新電影資料」按鈕爬取最新資料。
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

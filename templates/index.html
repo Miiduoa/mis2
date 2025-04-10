@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顧晉瑋的綜合專案</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: "微軟正黑體", Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .feature-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #0d6efd;
+        }
+        .jumbotron {
+            background-color: #0d6efd;
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">顧晉瑋的綜合專案</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">關於我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/templates/rwd.html">RWD版本</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mis">課程簡介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/movies">電影資料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">使用者管理</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="https://github.com/yourusername/mis-project" target="_blank" class="btn btn-outline-light me-2">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="/account" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> 登入
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <div class="container mt-4">
+        <!-- 歡迎區塊 -->
+        <div class="jumbotron text-center">
+            <h1 class="display-4">歡迎來到我的綜合專案</h1>
+            <p class="lead">這是一個整合前端網頁設計、Flask後端、Firebase資料庫、網路爬蟲的全方位應用</p>
+            <hr class="my-4">
+            <p>使用Bootstrap設計響應式介面，通過Flask伺服器連接Firebase資料庫，並整合網路爬蟲獲取最新電影資訊</p>
+            <a class="btn btn-light btn-lg" href="/about" role="button">了解更多</a>
+        </div>
+
+        <!-- 功能展示區 -->
+        <h2 class="text-center mb-4">主要功能展示</h2>
+        <div class="row">
+            <!-- 個人網頁 -->
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-circle feature-icon"></i>
+                        <h3 class="card-title">個人網頁</h3>
+                        <p class="card-text">展示個人資訊的靜態網頁，使用HTML、CSS和JavaScript實現基本互動功能</p>
+                        <div class="mt-auto">
+                            <a href="/about" class="btn btn-primary">查看網頁</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RWD網頁 -->
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-mobile-alt feature-icon"></i>
+                        <h3 class="card-title">響應式網頁</h3>
+                        <p class="card-text">使用Bootstrap框架設計的響應式網頁，在不同設備上都能獲得最佳瀏覽體驗</p>
+                        <div class="mt-auto">
+                            <a href="/templates/rwd.html" class="btn btn-primary">查看RWD版本</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Flask動態網站 -->
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-server feature-icon"></i>
+                        <h3 class="card-title">Flask網站</h3>
+                        <p class="card-text">使用Flask框架開發的動態網站，支援表單處理、路由映射等功能</p>
+                        <div class="mt-auto">
+                            <a href="/today" class="btn btn-primary">顯示日期時間</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Firebase整合 -->
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-database feature-icon"></i>
+                        <h3 class="card-title">Firebase資料庫</h3>
+                        <p class="card-text">與Firebase Firestore整合，實現資料的新增、查詢、更新和刪除功能</p>
+                        <div class="mt-auto">
+                            <a href="/users" class="btn btn-primary">使用者管理</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 網路爬蟲 -->
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-spider feature-icon"></i>
+                        <h3 class="card-title">網路爬蟲</h3>
+                        <p class="card-text">使用Python的requests和Beautiful Soup套件爬取電影網站資料</p>
+                        <div class="mt-auto">
+                            <a href="/refresh-movies" class="btn btn-primary">爬取最新電影</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 雲端部署 -->
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-cloud feature-icon"></i>
+                        <h3 class="card-title">Vercel部署</h3>
+                        <p class="card-text">透過Vercel平台部署應用，實現自動化CI/CD流程，讓網站可在線上訪問</p>
+                        <div class="mt-auto">
+                            <a href="https://vercel.com" target="_blank" class="btn btn-primary">了解Vercel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 電影資料展示 -->
+        <div class="mt-5">
+            <h2 class="text-center mb-4">電影資料展示</h2>
+            <div class="text-center mb-3">
+                <a href="/movies" class="btn btn-success btn-lg">查看所有電影</a>
+                <a href="/refresh-movies" class="btn btn-warning btn-lg ms-2">重新爬取資料</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="mb-3">
+                <a href="https://github.com/yourusername" target="_blank" class="text-white me-3">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+                <a href="mailto:example@example.com" class="text-white me-3">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/yourusername" target="_blank" class="text-white">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+            </div>
+            <p>顧晉瑋 | 資訊管理系 | 靜宜大學</p>
+            <p class="mb-0">© 2023 版權所有</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
