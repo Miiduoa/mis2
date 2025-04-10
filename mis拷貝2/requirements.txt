@@ -1,0 +1,6 @@
+flask
+firebase-admin
+requests
+bs4
+pyrebase4
+waitress
