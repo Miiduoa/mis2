@@ -19,32 +19,41 @@ try:
         db = firestore.client()
         has_firebase = True
         firebase_initialized = True
+        print("Spider: 使用已初始化的 Firebase")
     else:
         # 檢查環境變數
         firebase_env_key = os.environ.get('FIREBASE_SERVICE_ACCOUNT')
         
         if firebase_env_key:
             # 從環境變數讀取
-            service_account_info = json.loads(firebase_env_key)
-            
-            cred = credentials.Certificate(service_account_info)
-            firebase_admin.initialize_app(cred)
-            db = firestore.client()
-            has_firebase = True
-            firebase_initialized = True
-            print("Spider: Firebase 從環境變數初始化")
+            try:
+                service_account_info = json.loads(firebase_env_key)
+                
+                cred = credentials.Certificate(service_account_info)
+                firebase_admin.initialize_app(cred)
+                db = firestore.client()
+                has_firebase = True
+                firebase_initialized = True
+                print("Spider: Firebase 從環境變數初始化")
+            except Exception as env_error:
+                print(f"Spider: 從環境變數初始化失敗: {str(env_error)}")
+                traceback.print_exc()
         else:
             # 從檔案讀取
             base_dir = os.path.dirname(os.path.abspath(__file__))
             service_account_path = os.path.join(base_dir, "serviceAccountKey.json")
             
             if os.path.exists(service_account_path):
-                cred = credentials.Certificate(service_account_path)
-                firebase_admin.initialize_app(cred)
-                db = firestore.client()
-                has_firebase = True
-                firebase_initialized = True
-                print("Spider: Firebase 從檔案初始化")
+                try:
+                    cred = credentials.Certificate(service_account_path)
+                    firebase_admin.initialize_app(cred)
+                    db = firestore.client()
+                    has_firebase = True
+                    firebase_initialized = True
+                    print("Spider: Firebase 從檔案初始化")
+                except Exception as file_error:
+                    print(f"Spider: 從檔案初始化失敗: {str(file_error)}")
+                    traceback.print_exc()
             else:
                 print("Spider: Firebase 未初始化 - 找不到金鑰")
 except Exception as e:
@@ -121,6 +130,7 @@ def scrape_movies():
                         movie_ref.set(movie_data)
                     except Exception as firebase_error:
                         print(f"存入 Firebase 時出錯: {str(firebase_error)}")
+                        traceback.print_exc()
             except Exception as e:
                 print(f"處理電影時出錯: {str(e)}")
                 continue

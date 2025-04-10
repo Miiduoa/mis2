@@ -67,7 +67,7 @@ def page_not_found(e):
 
 @app.errorhandler(500)
 def server_error(e):
-    return render_template('error.html', error_code=500, error_message="伺服器錯誤"), 500
+    return render_template('404.html', error_code=500, error_message="伺服器錯誤"), 500
 
 @app.route('/')
 def index():
@@ -108,7 +108,7 @@ def about():
 def read_data():
     if not has_firebase:
         error_msg = "Firebase 未配置或初始化失敗，請確保 serviceAccountKey.json 檔案存在於程式目錄中"
-        return render_template('error.html', error_code=500, error_message=error_msg), 500
+        return render_template('404.html', error_code=500, error_message=error_msg), 500
     
     try:
         # 獲取所有學生資料
@@ -124,14 +124,14 @@ def read_data():
         error_details = traceback.format_exc()
         print(f"讀取學生資料時出錯: {str(e)}")
         print(error_details)
-        return render_template('error.html', 
+        return render_template('404.html', 
                                error_code=500, 
                                error_message=f"讀取學生資料時發生錯誤: {str(e)}")
 
 @app.route('/add_student', methods=['GET', 'POST'])
 def add_student():
     if not has_firebase:
-        return jsonify({"error": "Firebase 未配置"}), 500
+        return render_template('404.html', error_code=500, error_message="Firebase 未配置"), 500
     
     if request.method == 'POST':
         try:
@@ -173,11 +173,11 @@ def movie():
                                   count=result["count"], 
                                   lastUpdate=result["lastUpdate"])
         else:
-            return render_template('error.html', 
+            return render_template('404.html', 
                                   error_code="爬蟲錯誤", 
                                   error_message=result["message"])
     except Exception as e:
-        return render_template('error.html', 
+        return render_template('404.html', 
                               error_code=500, 
                               error_message=f"處理電影資訊時發生錯誤: {str(e)}")
 

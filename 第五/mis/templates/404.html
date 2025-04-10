@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}頁面未找到 - 404{% endblock %}
+{% block title %}{{ error_code|default('404') }} - {{ error_message|default('頁面未找到') }}{% endblock %}
 
 {% block content %}
 <div class="container text-center py-5">
@@ -8,9 +8,17 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body p-5">
-                    <h1 class="display-1 text-danger mb-4">404</h1>
-                    <h2 class="mb-4">頁面未找到</h2>
-                    <p class="lead mb-5">您嘗試訪問的頁面不存在或已被移除。</p>
+                    <h1 class="display-1 text-danger mb-4">{{ error_code|default('404') }}</h1>
+                    <h2 class="mb-4">{{ error_message|default('頁面未找到') }}</h2>
+                    <p class="lead mb-5">
+                        {% if error_code == 404 or not error_code %}
+                            您嘗試訪問的頁面不存在或已被移除。
+                        {% elif error_code == 500 %}
+                            伺服器處理請求時發生錯誤，請稍後再試。
+                        {% else %}
+                            發生了一個錯誤，請嘗試其他操作。
+                        {% endif %}
+                    </p>
                     <div class="d-flex justify-content-center gap-3">
                         <a href="/" class="btn btn-primary">
                             <i class="fas fa-home me-2"></i>返回首頁

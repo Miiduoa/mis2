@@ -15,10 +15,10 @@ except Exception as e:
     print(f"API: 導入應用失敗: {str(e)}")
     raise
 
-# 添加錯誤處理（僅用於診斷）
-@app.errorhandler(404)
-def custom_404(error):
-    return "找不到頁面 - Vercel 部署測試", 404
+# 移除額外的錯誤處理，避免與主應用衝突
+# @app.errorhandler(404)
+# def custom_404(error):
+#     return "找不到頁面 - Vercel 部署測試", 404
 
 # Vercel 需要這個入口點，在特殊情況下啟用
 if __name__ == "__main__":
