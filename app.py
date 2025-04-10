@@ -3,6 +3,8 @@ import datetime
 import os
 import time
 import json
+from io import BytesIO
+from urllib.parse import urlparse, parse_qs
 
 # 強制使用模擬模式
 USE_MOCK_DATA = True
@@ -396,11 +398,3 @@ def catch_all(path):
 # 本地開發用
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000) 
-
-# Vercel 部署需要
-from werkzeug.middleware.proxy_fix import ProxyFix
-app.wsgi_app = ProxyFix(app.wsgi_app)
-
-# Vercel 處理函數
-def handler(request, context):
-    return app(request) 
