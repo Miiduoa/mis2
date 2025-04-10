@@ -20,4 +20,6 @@ except Exception as e:
 def custom_404(error):
     return "找不到頁面 - Vercel 部署測試", 404
 
-# Vercel 需要這個入口點 
+# Vercel 需要這個入口點，在特殊情況下啟用
+if __name__ == "__main__":
+    app.run() 

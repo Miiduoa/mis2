@@ -63,7 +63,7 @@ app = Flask(__name__)
 # 錯誤處理
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error.html', error_code=404, error_message="找不到頁面"), 404
+    return render_template('404.html'), 404
 
 @app.errorhandler(500)
 def server_error(e):
