@@ -16,8 +16,9 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/api/index.py"
+      "src": "/[^.]+",
+      "dest": "/api/index.py",
+      "status": 200
     }
   ],
   "env": {
