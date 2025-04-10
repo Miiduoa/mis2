@@ -16,6 +16,6 @@ def hello():
 def api_test():
     return {"message": "API測試成功!", "status": "ok"}
 
-# 只有直接運行此文件時才啟動服務器
+# Vercel 部署需要這個
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    app.run(debug=True) 
