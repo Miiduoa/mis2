@@ -1,8 +1,14 @@
 /* 全域樣式 */
 body {
-    font-family: "微軟正黑體", Arial, sans-serif;
+    font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: #f8f9fa;
-    padding-top: 50px;
+}
+
+main {
+    flex: 1;
 }
 
 .container {
@@ -19,20 +25,41 @@ body {
     color: #0d6efd;
 }
 
-.card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
 .navbar-brand {
     font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    margin: 0 5px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .card-header {
+    background-color: #f8f9fa;
     font-weight: bold;
+}
+
+.form-control:focus {
+    border-color: #5c7cfa;
+    box-shadow: 0 0 0 0.2rem rgba(92, 124, 250, 0.25);
+}
+
+.btn-primary {
+    background-color: #5c7cfa;
+    border-color: #5c7cfa;
+}
+
+.btn-primary:hover {
+    background-color: #4263eb;
+    border-color: #4263eb;
 }
 
 /* 首頁樣式 */
@@ -40,12 +67,6 @@ body {
     background-color: #f8f9fa;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* 表單樣式 */
-.form-control:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
 }
 
 /* 今日頁面 */
@@ -63,6 +84,14 @@ footer {
 @media (max-width: 768px) {
     .display-4 {
         font-size: 2.5rem;
+    }
+    
+    .movie-card {
+        margin-bottom: 20px;
+    }
+    
+    .navbar-nav {
+        align-items: center;
     }
 }
 
@@ -91,4 +120,68 @@ footer {
     padding: 15px;
     border-left: 4px solid #3498db;
     margin: 20px 0;
+}
+
+/* 頁面特定樣式 */
+.welcome-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.today-info {
+    font-size: 1.2rem;
+}
+
+/* 電影卡片樣式 */
+.movie-card {
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-poster {
+    height: 300px;
+    object-fit: cover;
+}
+
+.movie-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    max-height: 48px;
+    overflow: hidden;
+}
+
+.movie-date {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.movie-length {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* 表格樣式 */
+.table {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+    background-color: #f1f3f5;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* 動畫效果 */
+.fade-in {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 } 

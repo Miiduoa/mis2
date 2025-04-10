@@ -2,16 +2,61 @@ from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import pytz
 import os
+import traceback
+import json
 
-# 如果存在 Firebase 配置文件，則導入相關模塊
-has_firebase = os.path.exists("serviceAccountKey.json")
-if has_firebase:
-    import firebase_admin
-    from firebase_admin import credentials, firestore
-    # 初始化 Firebase
-    cred = credentials.Certificate("serviceAccountKey.json")
-    firebase_admin.initialize_app(cred)
-    db = firestore.client()
+# 調整路徑以確保在 Vercel 上正確查找檔案
+base_dir = os.path.dirname(os.path.abspath(__file__))
+service_account_path = os.path.join(base_dir, "serviceAccountKey.json")
+
+# 檢查環境變數
+has_firebase = False
+firebase_env_key = os.environ.get('FIREBASE_SERVICE_ACCOUNT')
+
+if firebase_env_key:
+    try:
+        # 從環境變數讀取
+        import firebase_admin
+        from firebase_admin import credentials, firestore
+        
+        # 將環境變數字串轉換為 JSON
+        service_account_info = json.loads(firebase_env_key)
+        
+        # 初始化 Firebase
+        if not firebase_admin._apps:  # 避免重複初始化
+            cred = credentials.Certificate(service_account_info)
+            firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        has_firebase = True
+        print("Firebase 從環境變數成功初始化")
+    except Exception as e:
+        print(f"從環境變數初始化 Firebase 失敗: {str(e)}")
+        traceback.print_exc()
+# 如果環境變數不存在，則嘗試從檔案讀取
+elif os.path.exists(service_account_path):
+    try:
+        import firebase_admin
+        from firebase_admin import credentials, firestore
+        # 初始化 Firebase
+        if not firebase_admin._apps:  # 避免重複初始化
+            cred = credentials.Certificate(service_account_path)
+            firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        has_firebase = True
+        print("Firebase 從檔案成功初始化")
+    except Exception as e:
+        print(f"從檔案初始化 Firebase 失敗: {str(e)}")
+        traceback.print_exc()
+else:
+    print(f"無法初始化 Firebase: 環境變數和檔案都不存在")
+
+# 延遲導入以避免循環依賴
+try:
+    from spider import scrape_movies
+except ImportError as e:
+    print(f"無法導入爬蟲模組: {str(e)}")
+    def scrape_movies():
+        return {"success": False, "message": "爬蟲模組未正確加載"}
 
 app = Flask(__name__)
 
@@ -62,7 +107,8 @@ def about():
 @app.route('/read')
 def read_data():
     if not has_firebase:
-        return jsonify({"error": "Firebase 未配置"}), 500
+        error_msg = "Firebase 未配置或初始化失敗，請確保 serviceAccountKey.json 檔案存在於程式目錄中"
+        return render_template('error.html', error_code=500, error_message=error_msg), 500
     
     try:
         # 獲取所有學生資料
@@ -70,11 +116,17 @@ def read_data():
         students = []
         for doc in students_ref.stream():
             student_data = doc.to_dict()
+            student_data['id'] = doc.id  # 添加文檔ID
             students.append(student_data)
         
         return render_template('firebase_data.html', students=students, title="學生資料")
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        error_details = traceback.format_exc()
+        print(f"讀取學生資料時出錯: {str(e)}")
+        print(error_details)
+        return render_template('error.html', 
+                               error_code=500, 
+                               error_message=f"讀取學生資料時發生錯誤: {str(e)}")
 
 @app.route('/add_student', methods=['GET', 'POST'])
 def add_student():
@@ -107,6 +159,27 @@ def add_student():
             return render_template('add_student.html', error=str(e))
     
     return render_template('add_student.html')
+
+# 新增電影資訊爬取路由
+@app.route('/movie')
+def movie():
+    try:
+        # 爬取電影資訊
+        result = scrape_movies()
+        
+        if result["success"]:
+            return render_template('movies.html', 
+                                  movies=result["data"], 
+                                  count=result["count"], 
+                                  lastUpdate=result["lastUpdate"])
+        else:
+            return render_template('error.html', 
+                                  error_code="爬蟲錯誤", 
+                                  error_message=result["message"])
+    except Exception as e:
+        return render_template('error.html', 
+                              error_code=500, 
+                              error_message=f"處理電影資訊時發生錯誤: {str(e)}")
 
 # Vercel 需要訪問 Flask 的 app 對象
 if __name__ == '__main__':

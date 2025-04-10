@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}近期上映電影 - MIS課程網站{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4 text-center">近期上映電影</h1>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>共找到 <span class="badge bg-primary">{{ count }}</span> 部電影</div>
+                <div class="text-muted">最後更新: {{ lastUpdate }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if movie.picture %}
+                <img src="{{ movie.picture }}" class="card-img-top" alt="{{ movie.title }}" style="height: 300px; object-fit: cover;">
+                {% else %}
+                <div class="bg-light text-center py-5" style="height: 300px;">
+                    <span class="text-muted">無海報</span>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <div class="mb-2">
+                        <span class="badge bg-info">{{ movie.showDate }}</span>
+                        {% if movie.showLength %}
+                        <span class="badge bg-secondary">{{ movie.showLength }}分鐘</span>
+                        {% endif %}
+                    </div>
+                    <a href="{{ movie.hyperlink }}" class="btn btn-primary" target="_blank">查看詳情</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if count == 0 %}
+    <div class="alert alert-warning text-center">
+        目前沒有電影資訊，請稍後再試。
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 
