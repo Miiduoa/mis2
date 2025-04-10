@@ -71,7 +71,11 @@ def server_error(e):
 
 @app.route('/')
 def index():
-    return render_template('welcome.html', title="首頁")
+    """網站首頁，顯示應用主要功能導航"""
+    return render_template('welcome.html', 
+                           title="首頁", 
+                           nickname="訪客", 
+                           content="歡迎來到 MIS 資訊管理系統！您可以透過上方選單訪問不同功能。")
 
 @app.route('/mis')
 def mis():
