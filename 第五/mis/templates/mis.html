@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2><i class="fas fa-book"></i> MIS 課程列表</h2>
+    </div>
+    <div class="card-body">
+        <p class="lead">這個頁面展示了如何在 Flask 中處理和顯示數據列表，並使用模板循環。</p>
+        
+        <div class="table-responsive mt-4">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">課程名稱</th>
+                        <th scope="col">授課教師</th>
+                        <th scope="col">學分數</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <th scope="row">{{ course.id }}</th>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.teacher }}</td>
+                        <td>{{ course.credits }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">詳情</button>
+                            <button class="btn btn-sm btn-outline-success">選課</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="alert alert-info mt-4">
+            <h4 class="alert-heading">課程資訊</h4>
+            <p>這裡顯示的是模擬資料，在 Flask 應用程式中定義。在完整的系統中，這些資料會從資料庫中獲取。</p>
+            <hr>
+            <p class="mb-0">課程總數：{{ courses|length }} 門</p>
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="btn btn-primary mt-3"><i class="fas fa-home"></i> 返回首頁</a>
+    </div>
+</div>
+{% endblock %} 

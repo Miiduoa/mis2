@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded">
+    <h1 class="display-4">歡迎使用資訊管理系統</h1>
+    <p class="lead">這是一個使用 Flask 框架開發的動態網站，整合 Vercel 部署與 Firebase 資料庫</p>
+    <hr class="my-4">
+    <p>您可以通過此系統學習現代網站開發的全套流程，包括：</p>
+    <ul class="list-group mb-4">
+        <li class="list-group-item"><i class="fas fa-code"></i> 前端網頁設計 (HTML/CSS/JS)</li>
+        <li class="list-group-item"><i class="fas fa-mobile-alt"></i> 響應式設計 (RWD)</li>
+        <li class="list-group-item"><i class="fab fa-python"></i> Python Flask 動態後端</li>
+        <li class="list-group-item"><i class="fas fa-cloud"></i> Vercel 雲端部署</li>
+        <li class="list-group-item"><i class="fas fa-database"></i> Firebase 資料庫整合</li>
+    </ul>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('about') }}" role="button">了解更多</a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-calendar-day"></i> 查看今日日期</h5>
+                <p class="card-text">顯示目前的日期與時間資訊。</p>
+                <a href="{{ url_for('today') }}" class="btn btn-outline-primary">前往查看</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-user-check"></i> 個人化歡迎</h5>
+                <p class="card-text">體驗 URL 參數傳遞，顯示個人化的歡迎訊息。</p>
+                <a href="{{ url_for('welcome') }}?nick=同學" class="btn btn-outline-primary">前往體驗</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-key"></i> 帳號登入</h5>
+                <p class="card-text">模擬登入系統，展示表單處理與驗證功能。</p>
+                <a href="{{ url_for('account') }}" class="btn btn-outline-primary">前往登入</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-database"></i> Firebase整合</h5>
+                <p class="card-text">展示 Flask 與 Firebase 資料庫的整合。</p>
+                <a href="{{ url_for('read') }}" class="btn btn-outline-primary">查看資料</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

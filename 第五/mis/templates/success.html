@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-header bg-success text-white">
+        <h2><i class="fas fa-check-circle"></i> 登入成功</h2>
+    </div>
+    <div class="card-body">
+        <div class="my-5">
+            <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+            <h1 class="display-4 mt-3">登入成功！</h1>
+            <p class="lead">您已成功登入系統</p>
+        </div>
+        <hr>
+        <p>這個頁面顯示了如何在 Flask 中使用重定向（redirect）功能。</p>
+        <p>當用戶成功登入後，應用程式會將用戶重定向到這個成功頁面。</p>
+        <div class="mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-primary me-2"><i class="fas fa-home"></i> 返回首頁</a>
+            <a href="{{ url_for('account') }}" class="btn btn-outline-secondary"><i class="fas fa-sign-out-alt"></i> 登出</a>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        如果這是真正的應用程式，這裡會包含用戶的個人信息和會話管理。
+    </div>
+</div>
+{% endblock %} 

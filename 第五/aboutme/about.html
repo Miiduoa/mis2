@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我</title>
+    <style>
+        body {
+            font-family: '微軟正黑體', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 3px solid #3498db;
+        }
+        p {
+            margin: 10px 0;
+        }
+        a {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #e0e0e0;
+        }
+        audio, iframe {
+            display: block;
+            margin: 20px auto;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>個人簡介</h1>
+    <p>這是我的個人網頁，歡迎參觀！</p>
+    
+    <!-- 添加頭像圖片 -->
+    <img src="images/profile.jpg" alt="個人頭像" width="200">
+    
+    <h2>基本資料</h2>
+    <p>姓名：王小明</p>
+    <p>學校：資訊管理學系</p>
+    <p>興趣：網頁設計、程式開發</p>
+    
+    <h2>技能專長</h2>
+    <p>前端開發：HTML, CSS, JavaScript</p>
+    <p>後端技術：Python, Flask</p>
+    <p>資料庫：Firebase</p>
+    
+    <h2>相關連結</h2>
+    <p><a href="https://github.com/" target="_blank">我的 GitHub</a></p>
+    <p><a href="https://www.linkedin.com/" target="_blank">LinkedIn 個人檔案</a></p>
+    <p><a href="mailto:example@email.com">寄信給我</a></p>
+    
+    <h2>課程表</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>時間</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>09:00-10:00</td>
+                <td>資料結構</td>
+                <td>程式設計</td>
+                <td>資料庫</td>
+                <td>網頁設計</td>
+                <td>專題討論</td>
+            </tr>
+            <tr>
+                <td>10:10-11:00</td>
+                <td>作業系統</td>
+                <td>資訊管理</td>
+                <td>演算法</td>
+                <td>人工智慧</td>
+                <td>資訊安全</td>
+            </tr>
+            <tr>
+                <td>11:10-12:00</td>
+                <td>雲端運算</td>
+                <td>行動應用</td>
+                <td>系統分析</td>
+                <td>專題實作</td>
+                <td>專題發表</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>最愛的音樂</h2>
+    <audio controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音訊元素
+    </audio>
+    
+    <h2>推薦影片</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    <h2 id="messageHeading">給訪客的留言</h2>
+    <p id="welcomeMessage">感謝您拜訪我的網頁！</p>
+    <button id="changeTextBtn">點擊切換留言</button>
+    
+    <script>
+        // 切換留言內容功能
+        let isOriginalText = true;
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const changeTextBtn = document.getElementById('changeTextBtn');
+        
+        changeTextBtn.addEventListener('click', function() {
+            if (isOriginalText) {
+                welcomeMessage.textContent = '希望您喜歡我的個人網頁！';
+                welcomeMessage.style.color = '#e74c3c';
+                welcomeMessage.style.fontSize = '1.2em';
+                isOriginalText = false;
+            } else {
+                welcomeMessage.textContent = '感謝您拜訪我的網頁！';
+                welcomeMessage.style.color = 'black';
+                welcomeMessage.style.fontSize = '1em';
+                isOriginalText = true;
+            }
+        });
+        
+        // 顯示當前時間
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('zh-TW');
+            const dateString = now.toLocaleDateString('zh-TW');
+            document.getElementById('currentTime').textContent = `${dateString} ${timeString}`;
+        }
+        
+        // 頁面載入時顯示時間
+        document.addEventListener('DOMContentLoaded', function() {
+            // 創建時間顯示元素
+            const timeElement = document.createElement('p');
+            timeElement.id = 'currentTime';
+            timeElement.style.textAlign = 'center';
+            timeElement.style.fontWeight = 'bold';
+            document.querySelector('h1').after(timeElement);
+            
+            // 初始化時間並設置定時更新
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+    </script>
+</body>
+</html> 

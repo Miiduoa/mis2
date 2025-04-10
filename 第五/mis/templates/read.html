@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2><i class="fas fa-database"></i> Firebase 資料庫整合</h2>
+    </div>
+    <div class="card-body">
+        <p class="lead">這個頁面展示了 Flask 與 Firebase 資料庫的整合，顯示從 Firestore 讀取的數據。</p>
+        
+        <div class="alert alert-info mb-4">
+            <p class="mb-0">
+                <i class="fas fa-info-circle"></i> 注意：此頁面顯示的資料是從 Firebase Firestore 資料庫中讀取的。您需要先設置 Firebase 專案並添加一些資料才能看到內容。
+            </p>
+        </div>
+        
+        {% if students %}
+        <h3>學生列表</h3>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>姓名</th>
+                        <th>學號</th>
+                        <th>系所</th>
+                        <th>電子郵件</th>
+                        <th>入學年份</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.student_id }}</td>
+                        <td>{{ student.department }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.enrollment_year }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            <p class="mb-0">
+                <i class="fas fa-exclamation-triangle"></i> 沒有找到學生資料，可能是 Firebase 設定不正確或資料庫為空。
+            </p>
+        </div>
+        {% endif %}
+        
+        {% if courses %}
+        <h3 class="mt-5">課程列表</h3>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>課程代碼</th>
+                        <th>課程名稱</th>
+                        <th>授課教師</th>
+                        <th>學分數</th>
+                        <th>學期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ course.course_id }}</td>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.teacher }}</td>
+                        <td>{{ course.credits }}</td>
+                        <td>{{ course.semester }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning mt-4">
+            <p class="mb-0">
+                <i class="fas fa-exclamation-triangle"></i> 沒有找到課程資料，可能是 Firebase 設定不正確或資料庫為空。
+            </p>
+        </div>
+        {% endif %}
+        
+        <h3 class="mt-5">Firebase 連接狀態</h3>
+        <div class="card bg-light">
+            <div class="card-body">
+                <p><strong>連接狀態：</strong> 
+                    {% if connection_success %}
+                    <span class="badge bg-success">成功</span>
+                    {% else %}
+                    <span class="badge bg-danger">失敗</span>
+                    {% endif %}
+                </p>
+                <p><strong>錯誤訊息：</strong> {{ error_message if error_message else '無' }}</p>
+                <p><strong>學生資料筆數：</strong> {{ students|length if students else 0 }}</p>
+                <p><strong>課程資料筆數：</strong> {{ courses|length if courses else 0 }}</p>
+            </div>
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="btn btn-primary mt-4">
+            <i class="fas fa-home"></i> 返回首頁
+        </a>
+    </div>
+</div>
+{% endblock %} 
