@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title|default('歡迎頁面') }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: "微軟正黑體", Arial, sans-serif;
+            padding-top: 50px;
+        }
+        .welcome-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .welcome-card h1 {
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+        .nickname {
+            font-weight: bold;
+            color: #dc3545;
+            font-size: 1.5em;
+        }
+        .nav-links {
+            margin-top: 30px;
+        }
+        .nav-links a {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="welcome-card">
+                    <h1>{{ title|default('歡迎光臨') }}</h1>
+                    
+                    {% if nickname %}
+                    <p class="fs-4">你好，<span class="nickname">{{ nickname }}</span>！歡迎來到我的 Flask 網站</p>
+                    {% endif %}
+                    
+                    {% if content %}
+                    <div class="content mt-4">
+                        <p>{{ content }}</p>
+                    </div>
+                    {% else %}
+                    <div class="content mt-4">
+                        <p id="welcomeMessage">這是一個使用 Flask 框架開發的動態網站。</p>
+                        <p>你可以透過不同的 URL 參數來獲得個人化的歡迎訊息！</p>
+                        <p>例如：<code>/welcome?nick=你的名字</code></p>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="nav-links">
+                        <a href="/" class="btn btn-primary">首頁</a>
+                        <a href="/today" class="btn btn-success">查看時間</a>
+                        <a href="/account" class="btn btn-warning">帳戶登入</a>
+                        <a href="/mis" class="btn btn-info">MIS 課程</a>
+                        <a href="/about" class="btn btn-secondary">關於</a>
+                        <a href="/read" class="btn btn-danger">學生資料</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
