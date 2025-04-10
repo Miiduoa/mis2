@@ -1,11 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask
 
 # 初始化 Flask 應用
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    return 'Hello, Vercel!'
 
 @app.route('/hello')
 def hello():
@@ -15,6 +15,11 @@ def hello():
 @app.route('/api/test')
 def api_test():
     return {"message": "API測試成功!", "status": "ok"}
+
+# 添加健康檢查端點，Vercel可能需要
+@app.route('/health')
+def health():
+    return {"status": "healthy"}
 
 # Vercel 部署需要這個
 if __name__ == '__main__':
